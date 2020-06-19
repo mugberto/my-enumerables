@@ -37,8 +37,23 @@ module Enumerable
       arr
     end
   end
+
+  def my_all?
+    return true unless block_given?
+
+    bool = true
+    case self
+    when Hash
+      my_each { |k, v| bool = false if yield(k, v) == false }
+    else
+      my_each { |i| bool = false if yield(i) == false }
+    end
+    bool
+  end
 end
 
 # p({ liquid: 'water', solid: 'rock', gas: 'air', metal: 'copper' }.my_select { |_k, v| v.include? 'a' })
 # p (1..10).my_select
 # (1...10).my_each {|i| p i}
+# p [2,3,4,5].my_all? {|i| i.is_a? Numeric}
+# p(("a".."z").my_all? {|i| i.is_a? String} )
