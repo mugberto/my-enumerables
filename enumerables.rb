@@ -1,18 +1,15 @@
 module Enumerable
-  module Enumerable
-    def my_each
-      return enum_for unless block_given?
+  def my_each
+    return enum_for unless block_given?
 
-      obj = self
-      obj = obj.to_a unless obj.is_a? Array
-  
-      i = 0
-      while i < obj.size
-        obj[i].is_a?(Array) ? yield(obj[i][0], obj[i][1]) : yield(obj[i])
-        i += 1
-      end
-      obj
+    obj = self
+    obj = obj.to_a unless obj.is_a? Array
+    i = 0
+    while i < obj.size
+      obj[i].is_a?(Array) ? yield(obj[i][0], obj[i][1]) : yield(obj[i])
+      i += 1
     end
+    obj
   end
 
   def my_each_with_index
@@ -25,8 +22,23 @@ module Enumerable
     end
     arr
   end
+
+  def my_select
+    return enum_for unless block_given?
+
+    obj = self
+    if obj.is_a? Hash
+      hash = {}
+      obj.my_each { |k, v| hash[k] = v if yield(k, v) }
+      hash
+    else
+      arr = []
+      obj.my_each { |i| arr << i if yield i }
+      arr
+    end
+  end
 end
 
-# { liquid: 'water', solid: 'rock' }.my_each {|k, v| p "#{k} and #{v}"}
-# [5,5,8,2,3].my_each {|i| p i}
+# p({ liquid: 'water', solid: 'rock', gas: 'air', metal: 'copper' }.my_select { |_k, v| v.include? 'a' })
+# p (1..10).my_select
 # (1...10).my_each {|i| p i}
