@@ -1,7 +1,17 @@
 module Enumerable
-  def my_each
-    for element in self
-      element.is_a?(Array) ? yield(element[0], element[1]) : yield(element)
+  module Enumerable
+    def my_each
+      return enum_for unless block_given?
+
+      obj = self
+      obj = obj.to_a unless obj.is_a? Array
+  
+      i = 0
+      while i < obj.size
+        obj[i].is_a?(Array) ? yield(obj[i][0], obj[i][1]) : yield(obj[i])
+        i += 1
+      end
+      obj
     end
   end
 
@@ -20,4 +30,3 @@ end
 # { liquid: 'water', solid: 'rock' }.my_each {|k, v| p "#{k} and #{v}"}
 # [5,5,8,2,3].my_each {|i| p i}
 # (1...10).my_each {|i| p i}
-[1,2,3,3,5,6].my_each_with_index {|i, index| p "The #{i} index is at #{index}"}
