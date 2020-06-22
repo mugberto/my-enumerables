@@ -20,14 +20,16 @@ module Enumerable
   end
 
   def my_each_with_index
-    arr = self
+    return enum_for unless block_given?
+
+    arr = is_a?(Array) ? self : to_a
     arr = arr.to_a unless arr.is_a? Array
     i = 0
     until i >= arr.size
       yield(arr[i], i)
       i += 1
     end
-    arr
+    self
   end
 
   def my_select
@@ -64,5 +66,9 @@ end
 # (1...10).my_each {|i| p i}
 # p [2,3,4,5].my_all? {|i| i.is_a? Numeric}
 # p(("a".."z").my_all? {|i| i.is_a? String} )
+# [["a", "b"], ["c", "d"]].my_each { |i| p i }
+# [2,3,4,5].my_each_with_index {|x| print x, " -- " }
 
-[["a", "b"], ["c", "d"]].my_each { |i| p i }
+# hash = {}
+# %w[cat dog wombat].my_each_with_index
+#=> {"cat"=>0, "dog"=>1, "wombat"=>2}
