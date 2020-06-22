@@ -2,14 +2,21 @@ module Enumerable
   def my_each
     return enum_for unless block_given?
 
-    obj = self
-    obj = obj.to_a unless obj.is_a? Array
-    i = 0
-    while i < obj.size
-      obj[i].is_a?(Array) ? yield(obj[i][0], obj[i][1]) : yield(obj[i])
-      i += 1
+    if is_a? Hash
+      arr = to_a
+      i = 0
+      while i < arr.length
+        yield arr[i][0], arr[i][1]
+        i += 1
+      end
+    else
+      obj = is_a?(Array) ? self : to_a
+      i = 0
+      while i < obj.length
+        yield obj[i]
+        i += 1
+      end
     end
-    obj
   end
 
   def my_each_with_index
@@ -57,3 +64,5 @@ end
 # (1...10).my_each {|i| p i}
 # p [2,3,4,5].my_all? {|i| i.is_a? Numeric}
 # p(("a".."z").my_all? {|i| i.is_a? String} )
+
+[["a", "b"], ["c", "d"]].my_each { |i| p i }
