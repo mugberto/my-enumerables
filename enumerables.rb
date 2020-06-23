@@ -72,5 +72,17 @@ module Enumerable
     end
     out_value
   end
-end
 
+  def my_none?(obj = Object)
+    arr = to_a
+    out_value = true
+    if block_given?
+      arr.my_each { |i| out_value = false if yield(i) }
+    elsif obj.is_a?(Class)
+      arr.my_each { |i| out_value = false if i }
+    else
+      arr.my_each { |i| out_value = false if i == obj }
+    end
+    out_value
+  end
+end
