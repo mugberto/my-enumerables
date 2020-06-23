@@ -85,4 +85,16 @@ module Enumerable
     end
     out_value
   end
+
+  def my_count(obj = nil)
+    count = 0
+    if block_given?
+      my_each { |i| count += 1 if yield(i) }
+    elsif obj
+      my_each { |i| count += 1 if obj == i }
+    else
+      my_each { |_i| count += 1 }
+    end
+    count
+  end
 end
