@@ -97,4 +97,12 @@ module Enumerable
     end
     count
   end
+
+  def my_map
+    return enum_for unless block_given?
+
+    arr = []
+    my_each { |i| arr << yield(i) }
+    arr
+  end
 end
