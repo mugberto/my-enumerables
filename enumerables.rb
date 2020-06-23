@@ -3,32 +3,16 @@ module Enumerable
     return enum_for unless block_given?
 
     if is_a? Hash
-      arr = to_a
-      i = 0
-      while i < arr.length
-        yield arr[i][0], arr[i][1]
-        i += 1
-      end
+      to_a.length.times { |i| yield arr[i][0], arr[i][1] }
     else
-      obj = is_a?(Array) ? self : to_a
-      i = 0
-      while i < obj.length
-        yield obj[i]
-        i += 1
-      end
+      (is_a?(Array) ? self : to_a).length.times { |i| yield obj[i] }
     end
   end
 
   def my_each_with_index
     return enum_for unless block_given?
 
-    arr = is_a?(Array) ? self : to_a
-    arr = arr.to_a unless arr.is_a? Array
-    i = 0
-    until i >= arr.size
-      yield(arr[i], i)
-      i += 1
-    end
+    (is_a?(Array) ? self : to_a).size.times { |i| yield(arr[i], i) }
     self
   end
 
@@ -104,5 +88,19 @@ module Enumerable
     arr = []
     my_each { |i| arr << yield(i) }
     arr
+  end
+
+  def my_inject(*args)
+    if block_given?
+      acc = args[0].nil? ? self[0] : args[0]
+      my_each { |i| acc = yield(acc, i) }
+    elsif args.size == 2
+      acc = args[0]
+      my_each { |i| acc = acc.send(args[1], i) }
+    elsif args.size == 1
+      acc = 0
+      my_each { |i| acc = acc.send(args[0], i) }
+    end
+    acc
   end
 end
