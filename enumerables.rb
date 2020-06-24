@@ -1,6 +1,6 @@
 module Enumerable
   def my_each
-    return enum_for unless block_given?
+    return enum_for(:my_each) unless block_given?
 
     if is_a? Hash
       (obj = to_a).length.times { |i| yield obj[i][0], obj[i][1] }
@@ -10,13 +10,13 @@ module Enumerable
   end
 
   def my_each_with_index
-    return enum_for unless block_given?
+    return enum_for(:my_each_with_index) unless block_given?
 
     (arr = is_a?(Array) ? self : to_a).size.times { |i| yield(arr[i], i) }
   end
 
   def my_select
-    return enum_for unless block_given?
+    return enum_for(:my_select) unless block_given?
 
     if is_a? Hash
       hash = {}
@@ -78,7 +78,7 @@ module Enumerable
   end
 
   def my_map
-    return enum_for unless block_given?
+    return enum_for(:my_map) unless block_given?
 
     arr = []
     my_each { |i| arr << yield(i) }
@@ -93,7 +93,7 @@ module Enumerable
   end
 
   # my_map that takes a proc or block
-  def my_map3(my_proc)
+  def my_map3(my_proc = nil)
     arr = []
     block_given? ? my_each { |i| arr << yield(i) } : my_each { |i| arr << my_proc.call(i) }
     arr
