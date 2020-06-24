@@ -87,15 +87,18 @@ module Enumerable
   end
 
   def my_inject(*args)
-    if block_given?
-      acc = args[0].nil? ? self[0] : args[0]
+    if block_given? && args[0].nil?
+      acc = to_a[0]
+      to_a[1..-1].my_each { |i| acc = yield(acc, i) }
+    elsif block_given?
+      acc = args[0]
       my_each { |i| acc = yield(acc, i) }
     elsif args.size == 2
       acc = args[0]
       my_each { |i| acc = acc.send(args[1], i) }
     elsif args.size == 1
-      acc = 0
-      my_each { |i| acc = acc.send(args[0], i) }
+      acc = to_a[0]
+      to_a[1..-1].my_each { |i| acc = acc.send(args[0], i) }
     end
     acc
   end
