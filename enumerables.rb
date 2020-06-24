@@ -3,69 +3,65 @@ module Enumerable
     return enum_for unless block_given?
 
     if is_a? Hash
-      to_a.length.times { |i| yield arr[i][0], arr[i][1] }
+      (obj = to_a).length.times { |i| yield obj[i][0], obj[i][1] }
     else
-      (is_a?(Array) ? self : to_a).length.times { |i| yield obj[i] }
+      (obj = is_a?(Array) ? self : to_a).length.times { |i| yield obj[i] }
     end
   end
 
   def my_each_with_index
     return enum_for unless block_given?
 
-    (is_a?(Array) ? self : to_a).size.times { |i| yield(arr[i], i) }
+    (arr = is_a?(Array) ? self : to_a).size.times { |i| yield(arr[i], i) }
     self
   end
 
   def my_select
     return enum_for unless block_given?
 
-    obj = self
-    if obj.is_a? Hash
+    if is_a? Hash
       hash = {}
-      obj.my_each { |k, v| hash[k] = v if yield(k, v) }
+      my_each { |k, v| hash[k] = v if yield(k, v) }
       hash
     else
       arr = []
-      obj.my_each { |i| arr << i if yield i }
+      my_each { |i| arr << i if yield i }
       arr
     end
   end
 
   def my_all?(obj = Object)
-    arr = to_a
     out_value = true
     if block_given?
-      arr.my_each { |i| out_value = false unless yield(i) }
+      my_each { |i| out_value = false unless yield(i) }
     elsif obj.is_a?(Class)
-      arr.my_each { |i| out_value = false unless i }
+      my_each { |i| out_value = false unless i }
     else
-      arr.my_each { |i| out_value = false unless i == obj }
+      my_each { |i| out_value = false unless i == obj }
     end
     out_value
   end
 
   def my_any?(obj = Object)
-    arr = to_a
     out_value = false
     if block_given?
-      arr.my_each { |i| out_value = true if yield(i) }
+      my_each { |i| out_value = true if yield(i) }
     elsif obj.is_a? Class
-      arr.my_each { |i| out_value = true if i.is_a?(obj) }
+      my_each { |i| out_value = true if i.is_a?(obj) }
     else
-      arr.my_each { |i| out_value = true if i == obj }
+      my_each { |i| out_value = true if i == obj }
     end
     out_value
   end
 
   def my_none?(obj = Object)
-    arr = to_a
     out_value = true
     if block_given?
-      arr.my_each { |i| out_value = false if yield(i) }
+      my_each { |i| out_value = false if yield(i) }
     elsif obj.is_a?(Class)
-      arr.my_each { |i| out_value = false if i }
+      my_each { |i| out_value = false if i }
     else
-      arr.my_each { |i| out_value = false if i == obj }
+      my_each { |i| out_value = false if i == obj }
     end
     out_value
   end
