@@ -86,6 +86,12 @@ module Enumerable
     arr
   end
 
+  def my_map2(my_proc)
+    arr = []
+    my_each { |i| arr << my_proc.call(i) }
+    arr
+  end
+
   def my_inject(*args)
     if block_given? && args[0].nil?
       acc = to_a[0]
