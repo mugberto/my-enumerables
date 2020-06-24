@@ -13,7 +13,6 @@ module Enumerable
     return enum_for unless block_given?
 
     (arr = is_a?(Array) ? self : to_a).size.times { |i| yield(arr[i], i) }
-    self
   end
 
   def my_select
@@ -86,9 +85,17 @@ module Enumerable
     arr
   end
 
+  # my_map that takes a proc
   def my_map2(my_proc)
     arr = []
     my_each { |i| arr << my_proc.call(i) }
+    arr
+  end
+
+  # my_map that takes a proc or block
+  def my_map3(my_proc)
+    arr = []
+    block_given? ? my_each { |i| arr << yield(i) } : my_each { |i| arr << my_proc.call(i) }
     arr
   end
 
@@ -110,6 +117,7 @@ module Enumerable
   end
 end
 
+# multiply_els method to test #my_inject
 def multiply_els(arr)
   arr.my_inject(:*)
 end
