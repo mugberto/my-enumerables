@@ -72,7 +72,21 @@ describe Enumerable do
             obj = [nil, true, 99]
             expect(obj.all?).to eql(false)
         end
+    end
 
+    describe "#my_any?" do
+        it "should return true if any of the items in the collection meet the condition" do
+            obj = %w[ant bear cat]
+            expect(obj.my_any? { |word| word.length >= 3 } ).to eql(true)
+        end
+        it "should return true if any of the items in the collection is an integer " do
+            obj = [nil, true, 99]
+            expect(obj.my_any?(Integer)).to eql(true)
+        end
+        it "should return false since the array is empty or nil" do
+            obj = []
+            expect(obj.my_any?).to eql(false)
+        end
     end
 
 
