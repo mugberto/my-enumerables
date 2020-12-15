@@ -59,5 +59,21 @@ describe Enumerable do
 
     end
 
+    describe "#my_all?" do
+        it "should return true when none of the collection members are false or nil" do
+            obj = [1,2,3,4,5,6,7,8,9,10]
+            expect(obj.my_all? ).to eql(true)
+        end
+        it "should return true if the condition meets the block given, a Numeric" do
+            obj = [1, 2i, 3.14]
+            expect(obj.my_all?(Numeric)).to eql(true)
+        end
+        it "should return false since collection members are nil and false" do
+            obj = [nil, true, 99]
+            expect(obj.all?).to eql(false)
+        end
+
+    end
+
 
 end
