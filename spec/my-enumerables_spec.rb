@@ -19,7 +19,7 @@ describe Enumerable do
     describe '#my_each_with_index' do
         it "should return an enumerator object if block is not given" do
             obj = [1,2,3,4,5]
-            expect(obj.my_each_with_index.class).to eql(Enumerable)
+            expect(obj.my_each_with_index.class).to eql(Enumerator)
         end
     end
 
