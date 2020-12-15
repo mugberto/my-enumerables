@@ -27,4 +27,17 @@ describe Enumerable do
         end
     end
 
+    describe "#my_select" do
+        it "should return an enumerator object if block is not given" do
+            obj = [1,2,3,4,5]
+            expect(obj.my_select.class).to eql(Enumerator)
+        end
+        it "should return an array containing all the elements that meet the given condition of the block" do
+            obj = [1,2,3,4,5,6,7,8,9,10]
+            expect(obj.my_select {even).to eql([2,4,6,8,10])
+        end
+
+    end
+
+
 end
