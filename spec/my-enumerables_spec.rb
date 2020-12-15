@@ -89,5 +89,20 @@ describe Enumerable do
         end
     end
 
+    describe "#my_none?" do
+        it "should return true if none of the items in the collection meet the condition" do
+            obj = %w[ant bear cat]
+            expect(obj.my_none? { |word| word.length == 5 } ).to eql(true)
+        end
+        it "should return false if any of the items in the collection is a float " do
+            obj = [1, 3.14, 42]
+            expect(obj.my_none?(Float)).to eql(false)
+        end
+        it "should return true since the array is empty or nil" do
+            obj = []
+            expect(obj.my_none?).to eql(true)
+        end
+    end
+
 
 end
