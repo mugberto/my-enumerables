@@ -44,6 +44,10 @@ describe Enumerable do
             obj = [1,2,3,4,5,6,7,8,9,10]
             expect(obj.my_select {|n| n.even?}).to eql([2,4,6,8,10])
         end
+        it "should return a hash containing all the items that meet the given condition of the block if the block is given" do
+            obj = {gender: 'male', age: 27, mark: 32}
+            expect(obj.my_select {|n, i| i.is_a? Integer}).to eql({:age=>27, :mark=>32})
+        end
         it "should return a range containing all the elements that meet the given condition of the block" do
             obj = (1..10)
             expect(obj.my_select {|n| n.even?}).to eql([2,4,6,8,10])
