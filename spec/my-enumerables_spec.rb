@@ -25,6 +25,14 @@ describe Enumerable do
             obj = [1,2,3,4,5]
             expect(obj.my_each_with_index {|n| p "n is : #{n}"}).to eql(5)
         end
+        it "should return number of  hash items in a hash if block is given" do
+            obj = {gender: 'male', age: 27}
+            expect(obj.my_each_with_index {|n, i| p "n is : #{n}, i is #{i}"}).to eql(2)
+        end
+        it "should return number of  range items in a given range if block is given" do
+            obj = (1..10)
+            expect(obj.my_each_with_index {|n| p "n is : #{n}"}).to eql(10)
+        end
     end
 
     describe "#my_select" do
@@ -34,6 +42,10 @@ describe Enumerable do
         end
         it "should return an array containing all the elements that meet the given condition of the block" do
             obj = [1,2,3,4,5,6,7,8,9,10]
+            expect(obj.my_select {|n| n.even?}).to eql([2,4,6,8,10])
+        end
+        it "should return a range containing all the elements that meet the given condition of the block" do
+            obj = (1..10)
             expect(obj.my_select {|n| n.even?}).to eql([2,4,6,8,10])
         end
 
