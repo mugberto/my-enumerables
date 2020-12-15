@@ -34,7 +34,7 @@ describe Enumerable do
         end
         it "should return an array containing all the elements that meet the given condition of the block" do
             obj = [1,2,3,4,5,6,7,8,9,10]
-            expect(obj.my_select {even).to eql([2,4,6,8,10])
+            expect(obj.my_select {|n| n.even?}).to eql([2,4,6,8,10])
         end
 
     end
