@@ -14,6 +14,10 @@ describe Enumerable do
             obj = [1,2,4,5]
             expect(obj.my_each {|n| p "n is : #{n}"}).to eql(4)
         end
+        it "should return number of range items in an array if block is given" do
+            obj = (1..10)
+            expect(obj.my_each {|n| p "n is : #{n}"}).to eql(10)
+        end
     end
 
     describe '#my_each_with_index' do
