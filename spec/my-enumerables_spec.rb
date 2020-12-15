@@ -21,6 +21,10 @@ describe Enumerable do
             obj = [1,2,3,4,5]
             expect(obj.my_each_with_index.class).to eql(Enumerator)
         end
+        it "should return number of  array items in an array if block is given" do
+            obj = [1,2,3,4,5]
+            expect(obj.my_each_with_index {|n| p "n is : #{n}"}).to eql(5)
+        end
     end
 
 end
