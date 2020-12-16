@@ -163,9 +163,8 @@ describe Enumerable do
   end
 end
 
-
 describe '#multiply_els' do
-    it 'Returns the product of the given array.' do
-      expect( multiply_els([2, 4, 5])).to eql(40)
-    end
+  it 'Returns the product of the given array.' do
+    expect(multiply_els([2, 4, 5])).to eql(40)
+  end
 end
