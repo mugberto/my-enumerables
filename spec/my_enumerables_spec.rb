@@ -157,8 +157,15 @@ describe Enumerable do
       expect(obj.inject(1) { |product, n| product * n }).to eql(151_200)
     end
     it 'Returns the longest word in the set' do
-      obj = %w[cat sheep bear ]
-      expect(obj.inject { |memo, word| memo.length > word.length ? memo : word }).to eql("sheep")
+      obj = %w[cat sheep bear]
+      expect(obj.inject { |memo, word| memo.length > word.length ? memo : word }).to eql('sheep')
     end
   end
+end
+
+
+describe '#multiply_els' do
+    it 'Returns the product of the given array.' do
+      expect( multiply_els([2, 4, 5])).to eql(40)
+    end
 end
