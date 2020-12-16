@@ -156,5 +156,9 @@ describe Enumerable do
       obj = (5..10)
       expect(obj.inject(1) { |product, n| product * n }).to eql(151_200)
     end
+    it 'Returns the longest word in the set' do
+      obj = %w[cat sheep bear ]
+      expect(obj.inject { |memo, word| memo.length > word.length ? memo : word }).to eql("sheep")
+    end
   end
 end
