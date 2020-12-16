@@ -154,7 +154,7 @@ describe Enumerable do
     end
     it 'Returns the product of the numbers in the given range' do
       obj = (5..10)
-      expect(obj.inject(1) { |product, n| product * n }).to eql(151200)
+      expect(obj.inject(1) { |product, n| product * n }).to eql(151_200)
     end
   end
 end
