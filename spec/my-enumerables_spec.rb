@@ -119,5 +119,34 @@ describe Enumerable do
         end
     end
 
+    describe "#my_map" do
+        it "should return an enumerator object if block is not given" do
+            obj = [1,2,4,5]
+            expect(obj.my_map.class).to eql(Enumerator)
+        end
+        it "Returns a new array with the items multiplied by each other." do
+            obj = (1..4)
+            expect(obj.my_map { |i| i*i }).to eql([1, 4, 9, 16])
+        end
+    end
+
+    describe "#my_map2" do
+        it "Returns a new array with the items multiplied by each other with a proc passed as the condition." do
+            my_proc = proc { |i| i * i }
+            expect((1..5).my_map2(my_proc)).to eql([1, 4, 9, 16, 25])
+        end
+    end
+
+    describe "#my_map3" do
+        it "Returns a new array with the items multiplied by each other with a proc passed as the condition." do
+            my_proc = proc { |i| i * i }
+            expect((1..5).my_map3(my_proc)).to eql([1, 4, 9, 16, 25])
+        end
+        it "Returns a new array with the items added to each other with or without a proc passed in as the condition." do
+            my_proc = proc { |i| i * i }
+            expect((1..5).my_map3(my_proc) { |i| i + i }).to eql([2, 4, 6, 8, 10])
+        end
+    end
+
 
 end
