@@ -146,4 +146,15 @@ describe Enumerable do
       expect((1..5).my_map3(my_proc) { |i| i * 2 }).to eql([2, 4, 6, 8, 10])
     end
   end
+
+  describe '#my_inject' do
+    it 'Returns the sum of the numbers in the range given.' do
+      obj = (5..10)
+      expect(obj.my_inject { |sum, n| sum + n }).to eql(45)
+    end
+    it 'Returns the product of the numbers in the given range' do
+      obj = (5..10)
+      expect(obj.inject(1) { |product, n| product * n }).to eql([2, 4, 6, 8, 10])
+    end
+  end
 end
