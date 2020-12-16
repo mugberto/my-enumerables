@@ -104,5 +104,20 @@ describe Enumerable do
         end
     end
 
+    describe "#my_count" do
+        it "should return the number of items in the given array(4)" do
+            obj = [1,2,3,4]
+            expect(obj.my_count).to eql(4)
+        end
+        it "should return the number of the specified items in the given collection" do
+            obj = [1, 2, 3, 2, 4, 2]
+            expect(obj.my_count(2)).to eql(3)
+        end
+        it "should return the numbers that do not have a remainder when divided by 2" do
+            obj = [1, 2, 3, 2, 4, 2]
+            expect(obj.my_count { |x| x%2==0 }).to eql(4)
+        end
+    end
+
 
 end
